@@ -72,7 +72,6 @@ def search_face_in_collection(face_id,collection_id):
 
                         
     face_matches=response['FaceMatches']
-    print ('Matching faces')
     faceIds = [] 
     for match in face_matches:
             print ('FaceId:' + match['Face']['FaceId'])
@@ -102,10 +101,16 @@ def IndexAndSearchFace(searchFace, maxFaces, personName, prefix):
                 if matchingFaceIds == []:
                     continue
                 
-                sql = "select `personName` from `face` where faceId = '{0}' ".format(matchingFaceIds[0])
-                mycursor.execute(sql)
-                pName = mycursor.fetchone()[0]
-                print('PersonName Matched :: ' + pName)
+                for matchingFaceId in matchingFaceIds: 
+                    sql = "select `personName` from `face` where faceId = '{0}' ".format(matchingFaceId)
+                    mycursor.execute(sql)
+                    pName = mycursor.fetchone()
+                    print(pName)
+                    if pName is not None and pName[0] is not None:
+                       pName = pName[0]
+                       print('PersonName Matched :: ' + pName)
+                       if pName != 'UNKNOWN':
+                           break
 
                 sql = "UPDATE face SET personName = %s  WHERE faceId = %s "
                 val = (pName , face_id )
@@ -114,7 +119,62 @@ def IndexAndSearchFace(searchFace, maxFaces, personName, prefix):
                 print(mycursor.rowcount, "record(s) affected")
        # break
 
+def indexAllPersons():
+ IndexAndSearchFace(False, 1, 'Anand', 'TrainImages/Anand')
+ IndexAndSearchFace(False, 1, 'Bedore', 'TrainImages/Bedore')
+ IndexAndSearchFace(False, 1, 'Bjarke', 'TrainImages/Bjarke')
+ IndexAndSearchFace(False, 1, 'Dennis_Lardon', 'TrainImages/Dennis_Lardon')
+ IndexAndSearchFace(False, 1, 'Eichinger', 'TrainImages/Eichinger')
+ IndexAndSearchFace(False, 1, 'Evans', 'TrainImages/Evans')
+ IndexAndSearchFace(False, 1, 'Fay', 'TrainImages/Fay')
+ IndexAndSearchFace(False, 1, 'Gary_Kelly', 'TrainImages/Gary_Kelly')
+ IndexAndSearchFace(False, 1, 'Gaurav', 'TrainImages/Gaurav')
+ IndexAndSearchFace(False, 1, 'Grenier', 'TrainImages/Grenier')
+ IndexAndSearchFace(False, 1, 'Harbin', 'TrainImages/Harbin')
+ IndexAndSearchFace(False, 1, 'Harding', 'TrainImages/Harding')
+ IndexAndSearchFace(False, 1, 'Hargrove', 'TrainImages/Hargrove')
+ IndexAndSearchFace(False, 1, 'Harler', 'TrainImages/Harler')
+ IndexAndSearchFace(False, 1, 'Jones', 'TrainImages/Jones')
+ IndexAndSearchFace(False, 1, 'King', 'TrainImages/King')
+ IndexAndSearchFace(False, 1, 'Labrie', 'TrainImages/Labrie')
+ IndexAndSearchFace(False, 1, 'Mark_Wolfe', 'TrainImages/Mark_Wolfe')
+ IndexAndSearchFace(False, 1, 'Martin', 'TrainImages/Martin')
+ IndexAndSearchFace(False, 1, 'McMrtry', 'TrainImages/McMrtry')
+ IndexAndSearchFace(False, 1, 'Mike_Kapsa', 'TrainImages/Mike_Kapsa')
+ IndexAndSearchFace(False, 1, 'Montgomery', 'TrainImages/Montgomery')
+ IndexAndSearchFace(False, 1, 'Mossuto', 'TrainImages/Mossuto')
+ IndexAndSearchFace(False, 1, 'NoName2', 'TrainImages/NoName2')
+ IndexAndSearchFace(False, 1, 'Perez', 'TrainImages/Perez')
+ IndexAndSearchFace(False, 1, 'Perrino', 'TrainImages/Perrino')
+ IndexAndSearchFace(False, 1, 'Peters', 'TrainImages/Peters')
+ IndexAndSearchFace(False, 1, 'Phillips', 'TrainImages/Phillips')
+ IndexAndSearchFace(False, 1, 'Rabinowitz', 'TrainImages/Rabinowitz')
+ IndexAndSearchFace(False, 1, 'Reid', 'TrainImages/Reid')
+ IndexAndSearchFace(False, 1, 'Richardson', 'TrainImages/Richardson')
+ IndexAndSearchFace(False, 1, 'RIOS', 'TrainImages/RIOS')
+ IndexAndSearchFace(False, 1, 'Romano', 'TrainImages/Romano')
+ IndexAndSearchFace(False, 1, 'Ronny_Moon', 'TrainImages/Ronny_Moon')
+ IndexAndSearchFace(False, 1, 'Ross', 'TrainImages/Ross')
+ IndexAndSearchFace(False, 1, 'Rupprecht', 'TrainImages/Rupprecht')
+ IndexAndSearchFace(False, 1, 'Rutherford', 'TrainImages/Rutherford')
+ IndexAndSearchFace(False, 1, 'Sam_Iannuzzi', 'TrainImages/Sam_Iannuzzi')
+ IndexAndSearchFace(False, 1, 'Sarah_Schulte', 'TrainImages/Sarah_Schulte')
+ IndexAndSearchFace(False, 1, 'Schumacher', 'TrainImages/Schumacher')
+ IndexAndSearchFace(False, 1, 'Singh', 'TrainImages/Singh')
+ IndexAndSearchFace(False, 1, 'Stank', 'TrainImages/Stank')
+ IndexAndSearchFace(False, 1, 'Stewart', 'TrainImages/Stewart')
+ IndexAndSearchFace(False, 1, 'Swati', 'TrainImages/Swati')
+ IndexAndSearchFace(False, 1, 'Tonda_Montague', 'TrainImages/Tonda_Montague')
+ IndexAndSearchFace(False, 1, 'Toombs', 'TrainImages/Toombs')
+ IndexAndSearchFace(False, 1, 'Turneabe_Connelly', 'TrainImages/Turneabe_Connelly')
+ IndexAndSearchFace(False, 1, 'Turner', 'TrainImages/Turner')
+ IndexAndSearchFace(False, 1, 'Vargo', 'TrainImages/Vargo')
+ IndexAndSearchFace(False, 1, 'Weight', 'TrainImages/Weight')
+ IndexAndSearchFace(False, 1, 'Whitfield', 'TrainImages/Whitfield')
+
+
  
 if __name__ == "__main__":
-    IndexAndSearchFace( True, 5, 'UNKNOWN', 'Test/')
-    #IndexAndSearchFace(False, 1, 'Dennis_Lardon', 'Dennis_Lardon/')
+    #indexAllPersons()   
+    IndexAndSearchFace( True, 7, 'UNKNOWN', 'TestImages/')
+    #IndexAndSearchFace(False, 1, 'Anand_Kishore', 'TrainImages/Anand')

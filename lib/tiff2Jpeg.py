@@ -1,7 +1,7 @@
 import os
 from PIL import Image
 
-yourpath = "/Users/300002291/Documents/facialRecognition/OriginalImages/Dennis_Lardon/"
+yourpath = "/Users/300002291/Documents/facialRecognition/OriginalImages/SWAP20082000000001Q/"
 for root, dirs, files in os.walk(yourpath, topdown=False):
     for name in files:
         print(os.path.join(root, name))
